@@ -1,0 +1,17 @@
+<svg width="640" height="200" viewBox="0 0 640 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SocialMate logo">
+  <defs>
+    <linearGradient id="bubbleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1de4ff"/>
+      <stop offset="100%" stop-color="#0a66ff"/>
+    </linearGradient>
+    <filter id="bubbleShadow" x="0" y="0" width="360" height="220" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#0b2548" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <g filter="url(#bubbleShadow)">
+    <rect x="24" y="26" width="270" height="140" rx="46" fill="url(#bubbleGradient)"/>
+    <path d="M146 166 114 198 124 158" fill="url(#bubbleGradient)"/>
+    <path d="M170 62c9.5 22 15.5 28 36 36-20.5 8-26.5 14-36 36-9.5-22-15.5-28-36-36 20.5-8 26.5-14 36-36Z" fill="white"/>
+  </g>
+  <text x="320" y="122" fill="#0f172a" font-family="'Plus Jakarta Sans','Inter','Segoe UI',sans-serif" font-size="64" font-weight="800" letter-spacing="0.6">SocialMate</text>
+</svg>

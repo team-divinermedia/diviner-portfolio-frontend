@@ -1,0 +1,13 @@
+<svg width="640" height="200" viewBox="0 0 640 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SocialMate logo">
+  <defs>
+    <linearGradient id="bubbleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1de4ff"/>
+      <stop offset="100%" stop-color="#0a66ff"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path d="M40 42c0-17.673 14.327-32 32-32h188c17.673 0 32 14.327 32 32v64c0 17.673-14.327 32-32 32H124l-38 46 12-46H72c-17.673 0-32-14.327-32-32V42Z" fill="url(#bubbleGradient)"/>
+    <path d="M166 60c8.5 20 13.8 25.5 32 32-18.2 6.5-23.5 12-32 32-8.5-20-13.8-25.5-32-32 18.2-6.5 23.5-12 32-32Z" fill="white"/>
+  </g>
+  <text x="320" y="120" fill="#ffffff" font-family="'Plus Jakarta Sans','Inter','Segoe UI',sans-serif" font-size="60" font-weight="800" letter-spacing="0.6">SocialMate</text>
+</svg>
