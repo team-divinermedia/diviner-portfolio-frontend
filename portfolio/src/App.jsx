@@ -155,15 +155,23 @@ const normalizeMediaUrl = (url) => {
   }
 };
 
+import LogoWhite from './assets/SocialMate Logo-WhiteBG.png';
+
+// ... (existing imports)
+
+// ... (existing code)
+
 function Header({ onToggleFilters, isFilterOpen, liveStatus }) {
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/80 shadow-sm shadow-slate-200/60 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-sm font-semibold text-slate-50">
-              DM
-            </div>
+          <div className="flex items-center gap-3">
+            <img
+              src={LogoWhite}
+              alt="SocialMate"
+              className="h-10 w-auto object-contain"
+            />
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold tracking-tight text-slate-900">
