@@ -590,7 +590,7 @@ function FooterCTA() {
           </a>
 
           <a
-            href="/microservices"
+            href="https://socialmate.divinermedia.com/"
             className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-semibold text-slate-50 shadow-sm hover:bg-slate-800"
           >
             <span>View our services</span>
