@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Button from './ui/Button';
 
+import LogoDark from '../assets/SocialMate Logo-DarkBG.png';
+import LogoWhite from '../assets/SocialMate Logo-WhiteBG.png';
+
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -33,11 +36,11 @@ const Navbar = () => {
                     className="flex items-center gap-3 cursor-pointer transition-transform hover:scale-[1.02]"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
-                    <span
-                        className={`text-3xl md:text-[2.15rem] font-semibold tracking-tight font-['Baloo_2','Nunito','Quicksand','Inter',system-ui,-apple-system,sans-serif] ${scrolled ? 'text-slate-900' : 'text-white'}`}
-                    >
-                        SocialMate
-                    </span>
+                    <img
+                        src={scrolled ? LogoWhite : LogoDark}
+                        alt="SocialMate"
+                        className="h-10 w-auto object-contain"
+                    />
                 </button>
 
                 {/* Desktop Menu */}
