@@ -175,10 +175,7 @@ function Header({ onToggleFilters, isFilterOpen, liveStatus }) {
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold tracking-tight text-slate-900">
-                  Diviner Media
-                </span>
-                <span className="inline-flex items-center rounded-full bg-slate-900/5 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-slate-500">
-                  Live Portfolio
+                  Live Portfolio by Diviner media
                 </span>
               </div>
               <p className="text-xs text-slate-500">
