@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MessageCircle, Play, Check } from 'lucide-react';
 import Button from './ui/Button';
+import VideoModal from './VideoModal';
 
 const Hero = () => {
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
     const whatsappLink = "https://wa.me/918347572000?text=I'm%20interested%20in%20Diviner%20Media%20packages";
 
     return (
         <header className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-slate-900 overflow-hidden">
+            {/* Video Modal */}
+            <VideoModal
+                isOpen={isVideoOpen}
+                onClose={() => setIsVideoOpen(false)}
+                videoUrl="https://www.youtube.com/embed/UR4jFpvKf5Q"
+            />
+
             {/* Background Decor */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px]"></div>
@@ -73,7 +82,7 @@ const Hero = () => {
                     </div>
 
                     {/* Video Placeholder */}
-                    <div className="lg:w-1/2 w-full relative group">
+                    <div className="lg:w-1/2 w-full relative group cursor-pointer" onClick={() => setIsVideoOpen(true)}>
                         <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700 aspect-video bg-slate-800">
                             <img
@@ -82,10 +91,9 @@ const Hero = () => {
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-all duration-700 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-transform border border-white/20 cursor-pointer">
+                                <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-transform border border-white/20">
                                     <Play fill="white" className="text-white w-8 h-8" />
                                 </div>
-                                <p className="mt-6 text-white font-semibold text-sm tracking-widest uppercase bg-black/30 px-4 py-1 rounded-full backdrop-blur-sm border border-white/10">Watch: How we work (30s)</p>
                             </div>
                         </div>
                     </div>

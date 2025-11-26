@@ -30,8 +30,8 @@ const PainPoints = () => {
 
                 <div className="grid md:grid-cols-3 gap-8">
                     {points.map((item, idx) => (
-                        <div key={idx} className="bg-white p-8 rounded-3xl border border-slate-200 hover:border-orange-500 hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300 group">
-                            <div className="mb-6 bg-orange-50 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-orange-100">
+                        <div key={idx} className="bg-white p-8 rounded-3xl border border-slate-200 hover:border-orange-500 hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300 group text-center md:text-left">
+                            <div className="mb-6 bg-orange-50 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-orange-100 mx-auto md:mx-0">
                                 {item.icon}
                             </div>
                             <h4 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h4>
