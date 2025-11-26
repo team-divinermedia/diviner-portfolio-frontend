@@ -33,7 +33,7 @@ const Navbar = () => {
 
                 {/* Logo */}
                 <button
-                    className="flex items-center gap-3 cursor-pointer transition-transform hover:scale-[1.02]"
+                    className="flex flex-col items-start gap-0.5 cursor-pointer transition-transform hover:scale-[1.02]"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
                     <img
@@ -41,6 +41,9 @@ const Navbar = () => {
                         alt="SocialMate"
                         className="h-10 w-auto object-contain"
                     />
+                    <span className={`text-[10px] font-medium tracking-wide ${scrolled ? 'text-slate-600' : 'text-slate-200'}`}>
+                        Big Brand Creativity for Small Businesses
+                    </span>
                 </button>
 
                 {/* Desktop Menu */}

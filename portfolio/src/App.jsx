@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import {
   Menu,
   MessageCircle,
@@ -164,30 +164,35 @@ import LogoWhite from './assets/SocialMate Logo-WhiteBG.png';
 function Header({ onToggleFilters, isFilterOpen, liveStatus }) {
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/80 shadow-sm shadow-slate-200/60 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between px-4 py-4">
-        {/* Logo: Order 1 */}
-        <a href="https://socialmate.divinermedia.com/" className="order-1">
-          <img
-            src={LogoWhite}
-            alt="SocialMate"
-            className="h-10 w-auto object-contain"
-          />
-        </a>
-
-        {/* Text: Hidden on Mobile, Order 2 (Desktop) */}
-        <div className="hidden sm:block sm:order-2 sm:ml-3 sm:w-auto sm:text-left">
-          <div className="flex items-center justify-center gap-2 sm:justify-start">
-            <span className="text-sm font-semibold tracking-tight text-slate-900">
-              Live Portfolio by Diviner media
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+        {/* Left Group: Logo + Text */}
+        <div className="flex items-center gap-4">
+          <a href="https://socialmate.divinermedia.com/" className="flex flex-col items-start gap-0.5">
+            <img
+              src={LogoWhite}
+              alt="SocialMate"
+              className="h-10 w-auto object-contain"
+            />
+            <span className="text-[10px] font-bold tracking-wide text-slate-500 sm:hidden">
+              Live Portfolio by Diviner Media
             </span>
+          </a>
+
+          {/* Text: Hidden on Mobile */}
+          <div className="hidden sm:block">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-semibold tracking-tight text-slate-900">
+                Live Portfolio by Diviner media
+              </span>
+            </div>
+            <p className="text-xs text-slate-500">
+              Creative studio for high-converting social design.
+            </p>
           </div>
-          <p className="text-xs text-slate-500">
-            Creative studio for high-converting social design.
-          </p>
         </div>
 
-        {/* Right Actions: Order 2 (Mobile), Order 3 (Desktop) */}
-        <div className="order-2 flex items-center gap-3 sm:order-3">
+        {/* Right Actions */}
+        <div className="flex items-center gap-3">
           {liveStatus && (
             <div className="hidden items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50/80 px-3 py-1 text-xs text-emerald-700 sm:flex">
               <span className="relative flex h-3 w-3">
@@ -765,6 +770,33 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
   };
   const canSlide = slideCount > 1;
 
+  const [dragY, setDragY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartY = useRef(0);
+
+  const handleDragStart = (e) => {
+    setIsDragging(true);
+    dragStartY.current = e.touches[0].clientY;
+  };
+
+  const handleDragMove = (e) => {
+    if (!isDragging) return;
+    const currentY = e.touches[0].clientY;
+    const delta = currentY - dragStartY.current;
+    if (delta > 0) {
+      setDragY(delta);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    if (dragY > 100) {
+      onClose();
+    } else {
+      setDragY(0);
+    }
+  };
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/80 sm:items-center sm:px-6 sm:py-6"
@@ -773,9 +805,18 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
       <div
         className="flex max-h-[90vh] w-full max-w-5xl flex-col overflow-y-auto rounded-t-[32px] border border-slate-700 bg-[#040817] text-slate-50 shadow-2xl shadow-slate-900/80 sm:rounded-3xl"
         onClick={(e) => e.stopPropagation()}
+        style={{
+          transform: `translateY(${dragY}px)`,
+          transition: isDragging ? 'none' : 'transform 0.3s ease-out'
+        }}
       >
         {/* Mobile Drag Handle */}
-        <div className="flex w-full justify-center pt-3 sm:hidden">
+        <div
+          className="flex w-full justify-center pt-3 pb-1 sm:hidden touch-none cursor-grab active:cursor-grabbing"
+          onTouchStart={handleDragStart}
+          onTouchMove={handleDragMove}
+          onTouchEnd={handleDragEnd}
+        >
           <div className="h-1.5 w-12 rounded-full bg-slate-700/50" />
         </div>
         <div className="flex items-center justify-between border-b border-slate-800 px-4 py-3 sm:px-6">
@@ -932,13 +973,81 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
   );
 }
 
+function EngagementPopup({ isOpen, onClose }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:px-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      />
+
+      {/* Popup Content */}
+      <div className="relative w-full max-w-md overflow-hidden rounded-t-[32px] border border-slate-800 bg-[#040817] p-6 text-center shadow-2xl shadow-black/50 sm:rounded-[32px] sm:p-8">
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800/50 text-slate-400 hover:bg-slate-800 hover:text-white"
+        >
+          <X className="h-4 w-4" />
+        </button>
+
+        <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10">
+          <Sparkles className="h-6 w-6 text-orange-500" />
+        </div>
+
+        <h3 className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-white">
+          Let's add your brand to this feed
+        </h3>
+
+        <p className="mb-8 text-sm leading-relaxed text-slate-400">
+          Share a quick brief on WhatsApp or explore our microservices menu. We reply fast during working hours.
+        </p>
+
+        <div className="flex flex-col gap-3">
+          <a
+            href="https://wa.me/919356563455?text=Hi%2C%20I%20saw%20your%20portfolio%20and%20I%27m%20interested%20in%20your%20services."
+            target="_blank"
+            rel="noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3.5 text-sm font-bold text-white transition hover:bg-orange-600 active:scale-95"
+          >
+            <MessageCircle className="h-4 w-4" />
+            Share your experience on WhatsApp
+          </a>
+
+          <a
+            href="https://socialmate.divinermedia.com/#services"
+            target="_blank"
+            rel="noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800/30 px-4 py-3.5 text-sm font-semibold text-slate-300 transition hover:bg-slate-800 hover:text-white active:scale-95"
+          >
+            View our services
+            <ChevronRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [activeType, setActiveType] = useState("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [showEngagementPopup, setShowEngagementPopup] = useState(false);
 
   const [feedItems, setFeedItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowEngagementPopup(true);
+    }, 15000); // 15 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     async function loadFeed() {
@@ -1194,6 +1303,11 @@ function App() {
           />
         )
       }
+
+      <EngagementPopup
+        isOpen={showEngagementPopup}
+        onClose={() => setShowEngagementPopup(false)}
+      />
     </div >
   );
 }
