@@ -167,11 +167,13 @@ function Header({ onToggleFilters, isFilterOpen, liveStatus }) {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-3">
-            <img
-              src={LogoWhite}
-              alt="SocialMate"
-              className="h-10 w-auto object-contain"
-            />
+            <a href="https://socialmate.divinermedia.com/">
+              <img
+                src={LogoWhite}
+                alt="SocialMate"
+                className="h-10 w-auto object-contain"
+              />
+            </a>
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold tracking-tight text-slate-900">
