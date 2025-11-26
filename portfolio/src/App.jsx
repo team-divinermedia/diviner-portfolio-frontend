@@ -164,30 +164,30 @@ import LogoWhite from './assets/SocialMate Logo-WhiteBG.png';
 function Header({ onToggleFilters, isFilterOpen, liveStatus }) {
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/80 shadow-sm shadow-slate-200/60 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-3">
-            <a href="https://socialmate.divinermedia.com/">
-              <img
-                src={LogoWhite}
-                alt="SocialMate"
-                className="h-10 w-auto object-contain"
-              />
-            </a>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold tracking-tight text-slate-900">
-                  Live Portfolio by Diviner media
-                </span>
-              </div>
-              <p className="text-xs text-slate-500">
-                Creative studio for high-converting social design.
-              </p>
-            </div>
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between px-4 py-4">
+        {/* Logo: Order 1 */}
+        <a href="https://socialmate.divinermedia.com/" className="order-1">
+          <img
+            src={LogoWhite}
+            alt="SocialMate"
+            className="h-10 w-auto object-contain"
+          />
+        </a>
+
+        {/* Text: Hidden on Mobile, Order 2 (Desktop) */}
+        <div className="hidden sm:block sm:order-2 sm:ml-3 sm:w-auto sm:text-left">
+          <div className="flex items-center justify-center gap-2 sm:justify-start">
+            <span className="text-sm font-semibold tracking-tight text-slate-900">
+              Live Portfolio by Diviner media
+            </span>
           </div>
+          <p className="text-xs text-slate-500">
+            Creative studio for high-converting social design.
+          </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* Right Actions: Order 2 (Mobile), Order 3 (Desktop) */}
+        <div className="order-2 flex items-center gap-3 sm:order-3">
           {liveStatus && (
             <div className="hidden items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50/80 px-3 py-1 text-xs text-emerald-700 sm:flex">
               <span className="relative flex h-3 w-3">
@@ -208,17 +208,9 @@ function Header({ onToggleFilters, isFilterOpen, liveStatus }) {
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 shadow-sm hover:border-slate-300 hover:bg-slate-50"
           >
-            <MessageCircle className="h-3.5 w-3.5" />
-            <span>Chat on WhatsApp</span>
+            <MessageCircle className="h-4 w-4" />
+            <span>WhatsApp</span>
           </a>
-
-          <button
-            type="button"
-            className="ml-1 inline-flex items-center justify-center rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm hover:bg-slate-100 lg:hidden"
-            onClick={onToggleFilters}
-          >
-            <Menu className="h-4 w-4" />
-          </button>
         </div>
       </div>
 
@@ -467,7 +459,7 @@ function ReelCard({ item, isLatest, onOpen, onRegisterView }) {
   );
 }
 
-function MobileFeedItem({ item, onOpen, onRegisterView }) {
+function MobileFeedItem({ item, isLatest, onOpen, onRegisterView }) {
   const isReel = item.type === "reel";
   const mediaAspectClass =
     item.type === "story"
@@ -533,11 +525,22 @@ function MobileFeedItem({ item, onOpen, onRegisterView }) {
             onError={handleImgError}
           />
         )}
-        <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-slate-50">
-          <span className="flex items-center gap-1">
-            {isReel ? <VideoIcon className="h-3 w-3" /> : <ImageIcon className="h-3 w-3" />}
-            {typeLabelMap[item.type]}
-          </span>
+        <div className="absolute left-3 top-3 flex items-center gap-2">
+          {isLatest && (
+            <div className="flex items-center gap-1 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-white shadow shadow-emerald-500/40">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+              </span>
+              <span>Just in</span>
+            </div>
+          )}
+          <div className="flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-slate-50">
+            <span className="flex items-center gap-1">
+              {isReel ? <VideoIcon className="h-3 w-3" /> : <ImageIcon className="h-3 w-3" />}
+              {typeLabelMap[item.type]}
+            </span>
+          </div>
         </div>
       </div>
       <div className="space-y-1.5 px-3.5 py-3.5">
@@ -609,16 +612,12 @@ function FooterCTA() {
 }
 
 function FilterBar({
-  topCategories,
-  allCategories,
-  activeCategory,
-  onCategoryChange,
-  showAllCategories,
-  onToggleShowAll,
   timeFilter,
   onTimeFilterChange,
   sortMode,
   onSortModeChange,
+  activeType,
+  onTypeChange,
 }) {
   const timeOptions = [
     { value: "all", label: "All time" },
@@ -629,26 +628,15 @@ function FilterBar({
     { value: "1m", label: "1 month" },
   ];
 
-  const sortOptions = [
-    { value: "latest", label: "Latest updated" },
-    { value: "views", label: "Most viewed" },
-    { value: "best", label: "Best collection" },
+  const typeOptions = [
+    { value: "all", label: "All Types" },
+    { value: "reels", label: "Reels & Shorts" },
+    { value: "posts", label: "Posts" },
+    { value: "carousels", label: "Carousels" },
+    { value: "stories", label: "Stories" },
   ];
 
-  const renderCategoryPill = (category, key) => (
-    <button
-      key={key || category}
-      type="button"
-      onClick={() => onCategoryChange(category)}
-      className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium transition ${activeCategory === category
-        ? "border-slate-900 bg-slate-900 text-slate-50"
-        : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50"
-        }`}
-    >
-      {category === "all" && <Sparkles className="h-3 w-3" />}
-      <span>{category === "all" ? "All categories" : category}</span>
-    </button>
-  );
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <section className="mb-4 mt-2 rounded-3xl border border-slate-200 bg-white/95 px-3.5 py-3.5 shadow-md shadow-slate-200/60">
@@ -662,18 +650,18 @@ function FilterBar({
               Live feed filters
             </p>
             <p className="text-xs text-slate-500">
-              Tune what you see across posts, stories & reels in one go.
+              Tune what you see across posts, stories & reels.
             </p>
           </div>
         </div>
 
         <button
           type="button"
-          onClick={onToggleShowAll}
+          onClick={() => setIsExpanded((prev) => !prev)}
           className="inline-flex items-center justify-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[11px] font-medium text-slate-600 hover:bg-slate-100"
         >
-          <span>{showAllCategories ? "Collapse" : "See all"}</span>
-          {showAllCategories ? (
+          <span>{isExpanded ? "Collapse" : "See all"}</span>
+          {isExpanded ? (
             <ChevronUp className="h-3 w-3" />
           ) : (
             <ChevronDown className="h-3 w-3" />
@@ -681,41 +669,44 @@ function FilterBar({
         </button>
       </div>
 
-      {/* Top categories row */}
+      {/* Content Type Filters (Always Visible) */}
       <div className="mt-3 flex flex-wrap gap-1.5">
-        {renderCategoryPill("all", "all")}
-        {topCategories.map((cat) => renderCategoryPill(cat))}
+        {typeOptions.map((opt) => (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => onTypeChange(opt.value)}
+            className={`rounded-full border px-3 py-1 text-xs font-medium transition ${activeType === opt.value
+              ? "border-slate-900 bg-slate-900 text-slate-50"
+              : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+              }`}
+          >
+            {opt.label}
+          </button>
+        ))}
       </div>
 
-      {/* Expanded categories + sort controls */}
-      {showAllCategories && (
-        <div className="mt-3 space-y-3 border-t border-slate-200 pt-3">
-          <div className="flex flex-wrap gap-1.5">
-            {allCategories.map((cat) =>
-              topCategories.includes(cat) ? null : renderCategoryPill(cat)
-            )}
-          </div>
-
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-              <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/5 px-2 py-0.5 font-medium text-slate-600">
-                <Clock className="h-3 w-3" />
-                Duration
-              </span>
-              {timeOptions.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => onTimeFilterChange(opt.value)}
-                  className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium transition ${timeFilter === opt.value
-                    ? "bg-slate-900 text-slate-50"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+      {/* Duration Filters (Collapsible) */}
+      {isExpanded && (
+        <div className="mt-3 border-t border-slate-200 pt-3">
+          <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+            <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/5 px-2 py-0.5 font-medium text-slate-600">
+              <Clock className="h-3 w-3" />
+              Duration
+            </span>
+            {timeOptions.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => onTimeFilterChange(opt.value)}
+                className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium transition ${timeFilter === opt.value
+                  ? "bg-slate-900 text-slate-50"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+              >
+                {opt.label}
+              </button>
+            ))}
           </div>
         </div>
       )}
@@ -776,13 +767,17 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 px-3 py-6 sm:px-6"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/80 sm:items-center sm:px-6 sm:py-6"
       onClick={onClose}
     >
       <div
-        className="flex w-full max-w-5xl max-h-[90vh] flex-col overflow-y-auto rounded-3xl border border-slate-700 bg-[#040817] text-slate-50 shadow-2xl shadow-slate-900/80"
+        className="flex max-h-[90vh] w-full max-w-5xl flex-col overflow-y-auto rounded-t-[32px] border border-slate-700 bg-[#040817] text-slate-50 shadow-2xl shadow-slate-900/80 sm:rounded-3xl"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Mobile Drag Handle */}
+        <div className="flex w-full justify-center pt-3 sm:hidden">
+          <div className="h-1.5 w-12 rounded-full bg-slate-700/50" />
+        </div>
         <div className="flex items-center justify-between border-b border-slate-800 px-4 py-3 sm:px-6">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
@@ -938,7 +933,7 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
 }
 
 function App() {
-  const [activeMobileFilter, setActiveMobileFilter] = useState("all");
+  const [activeType, setActiveType] = useState("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const [feedItems, setFeedItems] = useState([]);
@@ -974,8 +969,6 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [showAllCategories, setShowAllCategories] = useState(false);
   const [timeFilter, setTimeFilter] = useState("all");
   const [sortMode, setSortMode] = useState("latest");
   const [viewCounts, setViewCounts] = useState({});
@@ -1010,24 +1003,12 @@ function App() {
 
   const liveStatusLabel = useMemo(() => getLiveStatusLabel(), []);
 
-  const { allCategories, topCategories } = useMemo(() => {
-    const counts = {};
-    itemsWithViews.forEach((item) => {
-      counts[item.category] = (counts[item.category] || 0) + 1;
-    });
-    const allCategoriesArr = Object.keys(counts).sort();
-    const topCategoriesArr = [...allCategoriesArr]
-      .sort((a, b) => counts[b] - counts[a])
-      .slice(0, 5);
-    return { allCategories: allCategoriesArr, topCategories: topCategoriesArr };
-  }, [itemsWithViews]);
+
 
   const filteredItems = useMemo(() => {
     let items = [...itemsWithViews];
 
-    if (activeCategory !== "all") {
-      items = items.filter((item) => item.category === activeCategory);
-    }
+
 
     if (timeFilter !== "all") {
       const now = new Date();
@@ -1042,6 +1023,20 @@ function App() {
         const threshold = new Date(now);
         threshold.setDate(now.getDate() - daysBack);
         items = items.filter((item) => new Date(item.createdAt) >= threshold);
+      }
+    }
+
+    if (activeType !== "all") {
+      if (activeType === "reels") {
+        items = items.filter((item) => item.type === "reel");
+      } else if (activeType === "posts") {
+        items = items.filter((item) => item.type === "post");
+      } else if (activeType === "stories") {
+        items = items.filter((item) => item.type === "story");
+      } else if (activeType === "carousels") {
+        items = items.filter(
+          (item) => item.layout === "carousel" || (item.slides && item.slides.length > 1)
+        );
       }
     }
 
@@ -1065,7 +1060,7 @@ function App() {
     });
 
     return items;
-  }, [itemsWithViews, activeCategory, timeFilter, sortMode]);
+  }, [itemsWithViews, timeFilter, sortMode, activeType]);
 
   const reels = useMemo(
     () => filteredItems.filter((item) => item.type === "reel"),
@@ -1077,13 +1072,7 @@ function App() {
     [filteredItems]
   );
 
-  const mobileFeedItems = useMemo(() => {
-    let items = [...filteredItems];
-    if (activeMobileFilter === "posts") items = items.filter((i) => i.type === "post");
-    if (activeMobileFilter === "stories") items = items.filter((i) => i.type === "story");
-    if (activeMobileFilter === "reels") items = items.filter((i) => i.type === "reel");
-    return items;
-  }, [filteredItems, activeMobileFilter]);
+  const mobileFeedItems = filteredItems;
 
   return (
     <div
@@ -1101,16 +1090,12 @@ function App() {
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 pb-10 pt-4 lg:pt-6">
         <div className="flex flex-col gap-3">
           <FilterBar
-            topCategories={topCategories}
-            allCategories={allCategories}
-            activeCategory={activeCategory}
-            onCategoryChange={setActiveCategory}
-            showAllCategories={showAllCategories}
-            onToggleShowAll={() => setShowAllCategories((prev) => !prev)}
             timeFilter={timeFilter}
             onTimeFilterChange={setTimeFilter}
             sortMode={sortMode}
             onSortModeChange={setSortMode}
+            activeType={activeType}
+            onTypeChange={setActiveType}
           />
         </div>
 
@@ -1183,10 +1168,11 @@ function App() {
 
             {/* Mobile mixed feed */}
             <div className="flex flex-col gap-3 lg:hidden">
-              {mobileFeedItems.map((item) => (
+              {mobileFeedItems.map((item, index) => (
                 <MobileFeedItem
                   key={item.id}
                   item={item}
+                  isLatest={index === 0}
                   onOpen={setActiveItem}
                   onRegisterView={registerView}
                 />
