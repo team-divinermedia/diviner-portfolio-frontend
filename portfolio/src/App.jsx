@@ -49,7 +49,7 @@ const getLiveStatusLabel = () => {
     minute: "2-digit",
   });
 
-  return `Last updated today at ${timeStr}`;
+  return `Last updated at ${timeStr}`;
 };
 
 const formatRelativeTime = (isoString) => {
@@ -186,17 +186,19 @@ function Header({ onToggleFilters, isFilterOpen, liveStatus }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="hidden items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50/80 px-3 py-1 text-xs text-emerald-700 sm:flex">
-            <span className="relative flex h-3 w-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
-            </span>
-            <span className="font-medium">Feed active</span>
-            <span className="h-4 w-px bg-emerald-200" />
-            <span className="flex items-center gap-1 text-[11px] text-emerald-700/80">
-              <Clock className="h-3 w-3" /> {liveStatus}
-            </span>
-          </div>
+          {liveStatus && (
+            <div className="hidden items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50/80 px-3 py-1 text-xs text-emerald-700 sm:flex">
+              <span className="relative flex h-3 w-3">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
+              </span>
+              <span className="font-medium">Feed active</span>
+              <span className="h-4 w-px bg-emerald-200" />
+              <span className="flex items-center gap-1 text-[11px] text-emerald-700/80">
+                <Clock className="h-3 w-3" /> {liveStatus}
+              </span>
+            </div>
+          )}
 
           <a
             href="https://wa.me/918347572000"
@@ -219,29 +221,31 @@ function Header({ onToggleFilters, isFilterOpen, liveStatus }) {
       </div>
 
       {/* Mobile live status */}
-      <div className="border-t border-slate-200 bg-white/90 sm:hidden">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-xs text-slate-600">
-          <div className="flex items-center gap-1.5">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+      {liveStatus && (
+        <div className="border-t border-slate-200 bg-white/90 sm:hidden">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-xs text-slate-600">
+            <div className="flex items-center gap-1.5">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              </span>
+              <span className="font-medium text-emerald-700">Feed active</span>
+            </div>
+            <span className="flex items-center gap-1 text-[11px] text-slate-500">
+              <Clock className="h-3 w-3" />
+              {liveStatus}
             </span>
-            <span className="font-medium text-emerald-700">Feed active</span>
           </div>
-          <span className="flex items-center gap-1 text-[11px] text-slate-500">
-            <Clock className="h-3 w-3" />
-            {liveStatus}
-          </span>
-        </div>
 
-        {isFilterOpen && (
-          <div className="border-t border-slate-200 bg-white px-4 py-2 text-xs text-slate-600 lg:hidden">
-            <p className="text-[11px] text-slate-500">
-              Use the filter below to view Posts, Stories, or Reels.
-            </p>
-          </div>
-        )}
-      </div>
+          {isFilterOpen && (
+            <div className="border-t border-slate-200 bg-white px-4 py-2 text-xs text-slate-600 lg:hidden">
+              <p className="text-[11px] text-slate-500">
+                Use the filter below to view Posts, Stories, or Reels.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }
@@ -1129,11 +1133,11 @@ function App() {
               {/* Left: Masonry grid */}
               <section className="w-2/3">
                 <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
-                  {desktopMasonryItems.map((item) => (
+                  {desktopMasonryItems.map((item, index) => (
                     <MasonryItemCard
                       key={item.id}
                       item={item}
-                      isLatest={item.id === latestItemId}
+                      isLatest={index === 0}
                       liveStatus={liveStatusLabel}
                       onOpen={setActiveItem}
                       onRegisterView={registerView}
