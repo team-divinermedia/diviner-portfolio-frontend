@@ -5,6 +5,12 @@ import Button from './ui/Button';
 const Services = () => {
     const whatsappLink = "https://wa.me/918347572000?text=I'm%20interested%20in%20Diviner%20Media%20packages";
 
+    const handleWhatsAppClick = () => {
+        if (window.fbq) {
+            window.fbq('track', 'Contact');
+        }
+    };
+
     return (
         <section id="services" className="py-24 bg-slate-50 px-4 relative overflow-hidden">
             <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#4f46e5_1px,transparent_1px)] [background-size:16px_16px]"></div>
@@ -65,7 +71,7 @@ const Services = () => {
                         </div>
 
                         <div className="relative z-10 mt-auto border-t border-white/10 pt-6">
-                            <Button href={whatsappLink} variant="secondary" className="w-full justify-center hover:bg-orange-500 hover:text-white border-none">
+                            <Button href={whatsappLink} variant="secondary" className="w-full justify-center hover:bg-orange-500 hover:text-white border-none" onClick={handleWhatsAppClick}>
                                 Order Now <ArrowRight size={16} />
                             </Button>
                         </div>
@@ -138,7 +144,7 @@ const Services = () => {
 
                         <div className="mt-auto pt-6 border-t border-slate-100">
                             <span className="text-2xl font-bold text-slate-900 block mb-4">₹7,500 <span className="text-sm text-slate-400 font-normal">/ fix</span></span>
-                            <Button href={whatsappLink} variant="secondary" className="w-full justify-center">Book Now</Button>
+                            <Button href={whatsappLink} variant="secondary" className="w-full justify-center" onClick={handleWhatsAppClick}>Book Now</Button>
                         </div>
                     </div>
 
@@ -161,7 +167,7 @@ const Services = () => {
                         <p className="text-slate-500 mb-6 text-sm relative z-10">Never miss a holiday. We design posts for every major Indian festival.</p>
                         <div className="flex items-center justify-between relative z-10">
                             <span className="font-bold text-xl">₹8000/- <span className="text-xs font-normal text-slate-400">Yearly</span></span>
-                            <a href={whatsappLink} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-900 hover:bg-orange-500 hover:text-white transition-colors"><ArrowRight size={18} /></a>
+                            <a href={whatsappLink} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-900 hover:bg-orange-500 hover:text-white transition-colors" onClick={handleWhatsAppClick}><ArrowRight size={18} /></a>
                         </div>
                     </div>
 
@@ -177,7 +183,7 @@ const Services = () => {
                                 <span className="text-xs text-slate-400 block font-medium">Starting From</span>
                                 <span className="font-bold text-xl text-slate-900">₹5,000/- <span className="text-sm font-normal text-slate-500">monthly</span></span>
                             </div>
-                            <a href={whatsappLink} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-900 hover:bg-orange-500 hover:text-white transition-colors"><ArrowRight size={18} /></a>
+                            <a href={whatsappLink} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-900 hover:bg-orange-500 hover:text-white transition-colors" onClick={handleWhatsAppClick}><ArrowRight size={18} /></a>
                         </div>
                     </div>
 
@@ -196,14 +202,14 @@ const Services = () => {
                                 <p className="text-slate-400 max-w-lg text-lg leading-relaxed">We provide white-label graphics for other marketing agencies. Scale without hiring.</p>
                             </div>
                         </div>
-                        <Button href={whatsappLink} className="bg-orange-500 text-white hover:bg-orange-600 border-none relative z-10 whitespace-nowrap px-8 py-4 text-lg font-bold shadow-xl shadow-orange-500/20">
-                            Get Agency Rates
-                        </Button>
                     </div>
-
+                    <Button href={whatsappLink} className="bg-orange-500 text-white hover:bg-orange-600 border-none relative z-10 whitespace-nowrap px-8 py-4 text-lg font-bold shadow-xl shadow-orange-500/20" onClick={handleWhatsAppClick}>
+                        Get Agency Rates
+                    </Button>
                 </div>
+
             </div>
-        </section>
+        </section >
     );
 };
 
