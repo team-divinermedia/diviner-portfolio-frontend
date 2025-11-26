@@ -27,6 +27,12 @@ const Navbar = () => {
         }
     };
 
+    const handleWhatsAppClick = () => {
+        if (window.fbq) {
+            window.fbq('track', 'Contact');
+        }
+    };
+
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-lg shadow-sm py-3' : 'bg-transparent py-6'}`}>
             <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
@@ -63,6 +69,7 @@ const Navbar = () => {
                         target="_blank"
                         rel="noreferrer"
                         variant={scrolled ? 'primary' : 'glass'}
+                        onClick={handleWhatsAppClick}
                     >
                         Talk to an Expert
                     </Button>
@@ -86,7 +93,7 @@ const Navbar = () => {
                         </span>
                         Live Feed
                     </a>
-                    <Button href={whatsappLink} variant="primary" className="text-xl px-8 py-4">
+                    <Button href={whatsappLink} variant="primary" className="text-xl px-8 py-4" onClick={handleWhatsAppClick}>
                         Open WhatsApp
                     </Button>
                 </div>

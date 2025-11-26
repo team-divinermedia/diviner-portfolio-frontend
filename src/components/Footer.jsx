@@ -5,6 +5,12 @@ import Button from './ui/Button';
 const Footer = () => {
     const whatsappLink = "https://wa.me/918347572000?text=I'm%20interested%20in%20Diviner%20Media%20packages";
 
+    const handleWhatsAppClick = () => {
+        if (window.fbq) {
+            window.fbq('track', 'Contact');
+        }
+    };
+
     return (
         <footer className="bg-slate-900 text-white py-24 px-4 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-600/20 rounded-full blur-[120px] pointer-events-none -mr-32 -mt-32"></div>
@@ -20,6 +26,7 @@ const Footer = () => {
                         href={whatsappLink}
                         className="text-xl px-10 py-5 shadow-orange-500/20"
                         icon={MessageCircle}
+                        onClick={handleWhatsAppClick}
                     >
                         Chat on WhatsApp
                     </Button>

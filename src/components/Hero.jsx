@@ -7,6 +7,12 @@ const Hero = () => {
     const [isVideoOpen, setIsVideoOpen] = useState(false);
     const whatsappLink = "https://wa.me/918347572000?text=I'm%20interested%20in%20Diviner%20Media%20packages";
 
+    const handleWhatsAppClick = () => {
+        if (window.fbq) {
+            window.fbq('track', 'Contact');
+        }
+    };
+
     return (
         <header className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-slate-900 overflow-hidden">
             {/* Video Modal */}
@@ -53,6 +59,7 @@ const Hero = () => {
                                 rel="noreferrer"
                                 className="w-full sm:w-auto text-lg py-4 px-8 whitespace-nowrap"
                                 icon={MessageCircle}
+                                onClick={handleWhatsAppClick}
                             >
                                 Get Started on WhatsApp
                             </Button>
