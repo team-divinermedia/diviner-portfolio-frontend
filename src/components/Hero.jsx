@@ -86,13 +86,13 @@ const Hero = () => {
                         <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700 aspect-video bg-slate-800">
                             <img
-                                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
+                                src="/assets/video-thumbnail.png"
                                 alt="Diviner Media Team"
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-all duration-700 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-transform border border-white/20">
-                                    <Play fill="white" className="text-white w-8 h-8" />
+                                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-transform border border-white/20">
+                                    <Play fill="white" className="text-white w-5 h-5" />
                                 </div>
                             </div>
                         </div>
