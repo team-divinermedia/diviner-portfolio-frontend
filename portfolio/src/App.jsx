@@ -795,7 +795,7 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
             <X className="h-4 w-4" />
           </button>
         </div>
-        <div className="flex flex-1 flex-col gap-4 overflow-hidden p-4 sm:flex-row sm:p-6">
+        <div className="flex flex-col gap-4 p-4 sm:flex-1 sm:flex-row sm:overflow-hidden sm:p-6">
           {/* Media area (left side of modal) */}
           {/* Media area */}
           <div className="flex-1 flex items-center justify-center">
