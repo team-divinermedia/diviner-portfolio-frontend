@@ -202,10 +202,10 @@ const Services = () => {
                                 <p className="text-slate-400 max-w-lg text-lg leading-relaxed">We provide white-label graphics for other marketing agencies. Scale without hiring.</p>
                             </div>
                         </div>
+                        <Button href={whatsappLink} className="bg-orange-500 text-white hover:bg-orange-600 border-none relative z-10 whitespace-nowrap px-8 py-4 text-lg font-bold shadow-xl shadow-orange-500/20" onClick={handleWhatsAppClick}>
+                            Get Agency Rates
+                        </Button>
                     </div>
-                    <Button href={whatsappLink} className="bg-orange-500 text-white hover:bg-orange-600 border-none relative z-10 whitespace-nowrap px-8 py-4 text-lg font-bold shadow-xl shadow-orange-500/20" onClick={handleWhatsAppClick}>
-                        Get Agency Rates
-                    </Button>
                 </div>
 
             </div>
