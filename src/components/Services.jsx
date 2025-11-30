@@ -8,6 +8,7 @@ const Services = () => {
     const handleWhatsAppClick = () => {
         if (window.fbq) {
             window.fbq('track', 'Contact');
+            window.fbq('track', 'Lead');
         }
     };
 
