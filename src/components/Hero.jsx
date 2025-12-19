@@ -40,7 +40,7 @@ const Hero = () => {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                             </span>
-                            <span className="text-blue-100 text-sm font-medium">Taking new clients for December</span>
+                            <span className="text-blue-100 text-sm font-medium">Taking new clients for January</span>
                         </div>
 
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 tracking-tight">
