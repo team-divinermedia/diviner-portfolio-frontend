@@ -195,7 +195,7 @@ const Services = () => {
                         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/50 to-slate-900/0 pointer-events-none"></div>
 
                         <div className="flex items-center gap-6 relative z-10">
-                            <div className="w-20 h-20 bg-white/5 rounded-2xl flex items-center justify-center text-white border border-white/10 shadow-2xl shadow-black/20">
+                            <div className="w-20 h-20 bg-white/5 rounded-2xl flex items-center justify-center text-white border border-white/10 shadow-2xl shadow-black/20 shrink-0">
                                 <Briefcase size={32} strokeWidth={1.5} />
                             </div>
                             <div>
