@@ -194,11 +194,11 @@ const Services = () => {
                         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
                         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/50 to-slate-900/0 pointer-events-none"></div>
 
-                        <div className="flex items-center gap-6 relative z-10">
+                        <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
                             <div className="w-20 h-20 bg-white/5 rounded-2xl flex items-center justify-center text-white border border-white/10 shadow-2xl shadow-black/20 shrink-0">
                                 <Briefcase size={32} strokeWidth={1.5} />
                             </div>
-                            <div>
+                            <div className="text-center md:text-left">
                                 <h3 className="font-bold text-2xl mb-2">Are you an Agency?</h3>
                                 <p className="text-slate-400 max-w-lg text-lg leading-relaxed">We provide white-label graphics for other marketing agencies. Scale without hiring.</p>
                             </div>
