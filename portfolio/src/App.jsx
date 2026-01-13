@@ -651,7 +651,7 @@ function FilterBar({
           </div>
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
-              Live feed filters
+              Live Feed Options
             </p>
             <p className="text-xs text-slate-500">
               Tune what you see across posts, stories & reels.
