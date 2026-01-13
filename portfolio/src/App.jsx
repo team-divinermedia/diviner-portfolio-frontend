@@ -304,12 +304,7 @@ function MasonryItemCard({ item, isLatest, liveStatus, onOpen, onRegisterView })
               referrerPolicy="no-referrer"
               onError={handleImgError}
             />
-            {(item.layout === "carousel" || (item.slides && item.slides.length > 1)) && (
-              <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-slate-900/80 px-2 py-1 text-[10px] font-medium text-slate-50">
-                <ImageIcon className="h-3 w-3" />
-                <span>Carousel preview</span>
-              </div>
-            )}
+
           </div>
         )}
 
@@ -332,7 +327,9 @@ function MasonryItemCard({ item, isLatest, liveStatus, onOpen, onRegisterView })
                 {item.category}
               </span>
               <span className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[10px] font-medium text-slate-500">
-                {typeLabelMap[item.type]}
+                {(item.layout === "carousel" || (item.slides && item.slides.length > 1))
+                  ? "Carousel"
+                  : typeLabelMap[item.type]}
               </span>
             </div>
             <h3 className="mt-1 text-sm font-semibold tracking-tight text-slate-900">
@@ -543,7 +540,9 @@ function MobileFeedItem({ item, isLatest, onOpen, onRegisterView }) {
           <div className="flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-slate-50">
             <span className="flex items-center gap-1">
               {isReel ? <VideoIcon className="h-3 w-3" /> : <ImageIcon className="h-3 w-3" />}
-              {typeLabelMap[item.type]}
+              {(item.layout === "carousel" || (item.slides && item.slides.length > 1))
+                ? "Carousel"
+                : typeLabelMap[item.type]}
             </span>
           </div>
         </div>
@@ -790,11 +789,6 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
 
   const handleDragEnd = () => {
     setIsDragging(false);
-    if (dragY > 100) {
-      onClose();
-    } else {
-      setDragY(0);
-    }
   };
 
   return (
@@ -864,12 +858,55 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
               </div>
             ) : (
               // Existing image layout for static posts/stories
-              <div className="relative w-full max-w-[420px] rounded-[32px] overflow-hidden bg-black">
+              <div
+                className="relative w-full max-w-[420px] rounded-[32px] overflow-hidden bg-black group"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 <img
                   src={mediaSrc}
                   alt={item.title || 'Design piece'}
                   className="w-full h-auto object-contain max-h-[80vh]"
+                  referrerPolicy="no-referrer"
+                  onError={handleImgError}
                 />
+
+                {/* Navigation Arrows for Carousel */}
+                {canSlide && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrev();
+                      }}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white/75 backdrop-blur-sm transition hover:bg-black/70 hover:text-white disabled:opacity-0 sm:opacity-0 sm:group-hover:opacity-100"
+                    >
+                      <ChevronRight className="h-5 w-5 rotate-180" />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNext();
+                      }}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white/75 backdrop-blur-sm transition hover:bg-black/70 hover:text-white disabled:opacity-0 sm:opacity-0 sm:group-hover:opacity-100"
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
+
+                    {/* Slide Indicator Dots */}
+                    <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+                      {Array.from({ length: slideCount }).map((_, idx) => (
+                        <div
+                          key={idx}
+                          className={`h-1.5 rounded-full transition-all ${idx === currentSlide
+                            ? "w-4 bg-white"
+                            : "w-1.5 bg-white/50"
+                            }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -895,7 +932,9 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
                 {item.category}
               </span>
               <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-medium text-slate-300">
-                {typeLabelMap[item.type]} • {item.layout}
+                {(item.layout === "carousel" || (item.slides && item.slides.length > 1))
+                  ? "Carousel"
+                  : typeLabelMap[item.type]} • {item.layout}
               </span>
               {item.isConceptArt && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-violet-500/20 px-2 py-0.5 text-[10px] font-medium text-violet-100">
