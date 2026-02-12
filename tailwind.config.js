@@ -3,8 +3,8 @@ export default {
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
-        "./portfolio/index.html",
-        "./portfolio/src/**/*.{js,ts,jsx,tsx}",
+        "./landing/index.html",
+        "./landing/src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         extend: {},
