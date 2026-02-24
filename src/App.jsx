@@ -873,20 +873,6 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
                                     onError={handleImgError}
                                 />
 
-                                {isStory && (
-                                    <div className="pointer-events-none absolute inset-x-4 top-4 flex items-center justify-between z-10">
-                                        <div className="flex flex-1 gap-1">
-                                            {Array.from({ length: slideCount }).map((_, idx) => (
-                                                <span
-                                                    key={idx}
-                                                    className={`h-0.5 flex-1 rounded-full ${idx <= currentSlide ? "bg-orange-400" : "bg-slate-600"
-                                                        }`}
-                                                />
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
                                 {/* Navigation Arrows for Carousel */}
                                 {canSlide && (
                                     <>
