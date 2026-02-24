@@ -854,6 +854,7 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
                                     src={item.videoUrl}
                                     className="w-full h-full object-contain"
                                     controls
+                                    controlsList="nodownload"
                                 />
                             </div>
                         ) : (

@@ -25,6 +25,15 @@ body {
   scrollbar-width: none;
 }
 
+img, video {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
