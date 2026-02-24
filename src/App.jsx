@@ -860,7 +860,8 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
                         ) : (
                             // Existing image layout for static posts/stories
                             <div
-                                className="relative w-full max-w-[420px] rounded-[32px] overflow-hidden group"
+                                className="relative flex flex-col justify-center items-center rounded-[32px] overflow-hidden group mx-auto"
+                                style={{ maxWidth: '420px', width: 'fit-content' }}
                                 onTouchStart={handleTouchStart}
                                 onTouchEnd={handleTouchEnd}
                             >
