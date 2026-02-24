@@ -860,7 +860,7 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
                         ) : (
                             // Existing image layout for static posts/stories
                             <div
-                                className="relative w-full max-w-[420px] rounded-[32px] overflow-hidden bg-black group"
+                                className="relative w-full max-w-[420px] rounded-[32px] overflow-hidden group"
                                 onTouchStart={handleTouchStart}
                                 onTouchEnd={handleTouchEnd}
                             >
@@ -871,6 +871,20 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
                                     referrerPolicy="no-referrer"
                                     onError={handleImgError}
                                 />
+
+                                {isStory && (
+                                    <div className="pointer-events-none absolute inset-x-4 top-4 flex items-center justify-between z-10">
+                                        <div className="flex flex-1 gap-1">
+                                            {Array.from({ length: slideCount }).map((_, idx) => (
+                                                <span
+                                                    key={idx}
+                                                    className={`h-0.5 flex-1 rounded-full ${idx <= currentSlide ? "bg-orange-400" : "bg-slate-600"
+                                                        }`}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
 
                                 {/* Navigation Arrows for Carousel */}
                                 {canSlide && (
@@ -911,21 +925,6 @@ function ItemModal({ item, isLatest, liveStatus, onClose }) {
                             </div>
                         )}
                     </div>
-                    {isStory && (
-                        <div className="pointer-events-none absolute inset-x-4 top-4 flex items-center justify-between">
-                            <div className="flex flex-1 gap-1">
-                                {Array.from({ length: slideCount }).map((_, idx) => (
-                                    <span
-                                        key={idx}
-                                        className={`h-0.5 flex-1 rounded-full ${idx <= currentSlide ? "bg-orange-400" : "bg-slate-600"
-                                            }`}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-
                     {/* Info area */}
                     <aside className="flex w-full flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/80 p-3 text-xs sm:w-72 sm:p-4">
                         <div className="flex flex-wrap items-center gap-1.5">
